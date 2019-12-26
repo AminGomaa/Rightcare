@@ -1,0 +1,64 @@
+﻿@model IEnumerable<RightCareSite.Models.DataBase.MND_TBL>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.MND_NAME)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MND_ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MND_TEL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MND_ADD)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MND_REGON)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.START_DATE)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MND_NAME)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MND_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MND_TEL)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MND_ADD)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MND_REGON)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.START_DATE)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

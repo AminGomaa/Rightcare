@@ -1,0 +1,67 @@
+﻿@model RightCareSite.Models.DataBase.MND_TBL
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MND_TBL</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MND_NAME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MND_NAME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MND_ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MND_ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MND_TEL)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MND_TEL)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MND_ADD)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MND_ADD)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MND_REGON)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MND_REGON)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.START_DATE)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.START_DATE)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

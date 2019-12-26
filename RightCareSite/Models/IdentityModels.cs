@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using RightCareSite.Models.DataBase;
 
 namespace RightCareSite.Models
 {
@@ -29,5 +30,14 @@ namespace RightCareSite.Models
         {
             return new ApplicationDbContext();
         }
+        public DbSet<MND_TBL> MND_TBLs { get; set; }
+        public DbSet<CUST_TBL> CUST_TBLs { get; set; }
+        public DbSet<MND_CAT> MND_CATs { get; set; }
+        public DbSet<Product_Tble> product_Tbles { get; set; }
+        public DbSet<Suply_tbl> suply_Tbls { get; set; } 
+        public DbSet<Category_tbl> Category_Tbls { get; set; }
+        public DbSet<Stor_tbl> stor_Tbls { get; set; }
+        public DbSet<Sal_tbl> Sal_Tbls { get; set; }
+        public DbSet<Buy_tbl> buy_Tbls { get; set; }
     }
 }
