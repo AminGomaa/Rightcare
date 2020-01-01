@@ -17,6 +17,7 @@ namespace RightCareSite.Models.DataBase
         public virtual ICollection<Sal_tbl> Sal_Tbls { get; set; }
         public virtual ICollection<Stor_tbl> Stor_Tbls { get; set; }
 
+      
 
     }
 }

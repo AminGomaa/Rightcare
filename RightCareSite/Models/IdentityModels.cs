@@ -39,5 +39,6 @@ namespace RightCareSite.Models
         public DbSet<Stor_tbl> stor_Tbls { get; set; }
         public DbSet<Sal_tbl> Sal_Tbls { get; set; }
         public DbSet<Buy_tbl> buy_Tbls { get; set; }
+        public DbSet<Gov_tbl> Gov_tbls { get; set; }
     }
 }

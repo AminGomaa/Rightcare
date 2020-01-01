@@ -5,39 +5,50 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>بيانات صنف</h2>
 
-<div>
-    <h4>Product_Tble</h4>
+<div align="right">
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Category_Tbl.Category)
-        </dt>
+        <div class="col-md-7">
 
-        <dd>
-            @Html.DisplayFor(model => model.Category_Tbl.Category)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Id)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
+            <dd>
+                @Html.DisplayFor(model => model.Category_Tbl.Category)
+            </dd>
+            <p>
         <dd>
             @Html.DisplayFor(model => model.Name)
         </dd>
+        </p>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.SelPrice)
-        </dt>
-
+        <p>
         <dd>
             @Html.DisplayFor(model => model.SelPrice)
         </dd>
+        </p>
+</div>
+        <div class="col-md-5">
+            <dt>
+                <p>كود الصنف</p>   
+             </dt>
+            <dt>
+                <p>نوع الصنف</p>
+            </dt>
+            <dt>
+                <p> الصنف</p>
+            </dt>
+            <dt>
+                <p>سعر البيع</p>
+            </dt>
+        </div>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("تعديل", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("العودة لقائمة الاصناف", "Index")
 </p>

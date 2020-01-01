@@ -19,7 +19,9 @@ namespace RightCareSite.Models.DataBase
 
         public string START_DATE { get; set; }
         public int MND_CATId { get; set; }
-        public ICollection<CUST_TBL> CUST_TBLs { get; set; }
+        public int Gov_tblId { get; set; }
+        public virtual ICollection<CUST_TBL> CUST_TBLs { get; set; }
         public virtual MND_CAT MND_CAT { get; set; }
+        public virtual Gov_tbl Gov_tbl { get; set; }
     }
 }

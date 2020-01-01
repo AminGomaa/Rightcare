@@ -5,14 +5,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>اضافة منتج جديد</h2>
+<h2 align="right">اضافة صنف جديد</h2>
 
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
-<div class="form-horizontal">
+<div class="form-horizontal" align="right">
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
@@ -22,7 +22,7 @@
                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
             </div>
             <div class="col-md-2">
-                @Html.LabelFor(model => model.Name, "المنتج", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.Name, "الصنف", htmlAttributes: new { @class = "control-label col-md-2" })
             </div>
         </div>
 
@@ -46,12 +46,12 @@
                 @Html.ValidationMessageFor(model => model.Category_tblId, "", new { @class = "text-danger" })
             </div>
             <div class="col-md-2">
-                @Html.LabelFor(model => model.Category_tblId, "التصنيف",  htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.Category_tblId, "النوع",  htmlAttributes: new { @class = "control-label col-md-2" })
             </div>
         </div>
     </div>
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
+        <div class="col-md-offset-2 col-md-6">
             <input type="submit" value="انشاء" class="btn btn-default" />
         </div>
     </div>
@@ -59,7 +59,7 @@
 }
 
 <div>
-    @Html.ActionLink("العودة للقائمة", "Index")
+    @Html.ActionLink("العودة لقائمة الاصناف", "Index")
 </div>
 
 @section Scripts {
