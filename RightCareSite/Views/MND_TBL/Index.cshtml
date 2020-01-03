@@ -1,0 +1,77 @@
+﻿@model IEnumerable<RightCareSite.Models.DataBase.MND_TBL>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>قائمة المندوبين</h2>
+
+<p>
+    @Html.ActionLink("انشاء مندوب جديد", "Create")
+</p>
+<table class="table table-stripped table-bordered table-hover">
+
+    <tr>
+        <th></th>
+        <th>
+            <p>الصورة</p>
+        </th>
+        <th>
+            <p>المحافظة</p>
+        </th>
+        <th>
+            <p>نوع المندوب</p>
+        </th>
+
+        <th>
+            <p>الرقم القومي</p>
+        </th>
+        <th>
+            <p>التليفون</p>
+        </th>
+        
+        <th>
+            <p>كود المندوب</p>
+        </th>
+        <th>
+            <p>اسم المندوب</p>
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.ActionLink("تعديل", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("تفاصيل", "Details", new { id = item.Id }) |
+            @Html.ActionLink("حذف", "Delete", new { id = item.Id })
+        </td>
+        <td>
+            <img src="~/Uploads/@Html.DisplayFor(model=>item.MND_REGON)"
+                 class="thumbnail" style="width:60px; height:60px" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Gov_tbl.Gov_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MND_CAT.Category)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.MND_ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MND_TEL)
+        </td>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MND_NAME)
+        </td>
+    </tr>
+    }
+
+</table>

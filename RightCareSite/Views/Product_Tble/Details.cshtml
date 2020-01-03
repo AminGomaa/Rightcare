@@ -5,7 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>بيانات صنف</h2>
+<h2>
+    @Html.DisplayFor(model => model.Name)
+</h2>
 
 <div align="right">
     <hr />
@@ -20,9 +22,7 @@
                 @Html.DisplayFor(model => model.Category_Tbl.Category)
             </dd>
             <p>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+       
         </p>
 
         <p>
@@ -38,9 +38,7 @@
             <dt>
                 <p>نوع الصنف</p>
             </dt>
-            <dt>
-                <p> الصنف</p>
-            </dt>
+            
             <dt>
                 <p>سعر البيع</p>
             </dt>

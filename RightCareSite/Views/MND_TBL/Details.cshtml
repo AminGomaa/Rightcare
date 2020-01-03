@@ -1,0 +1,100 @@
+﻿@model RightCareSite.Models.DataBase.MND_TBL
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2> @Html.DisplayFor(model => model.MND_NAME)</h2>
+
+<div>
+    <hr />
+   
+
+    <dl class="dl-horizontal">
+
+        <div class="row">
+            <div class="col-md-5">
+                <dd>
+                    <img src="~/Uploads/@Html.DisplayFor(model=>model.MND_REGON)"
+                         class="thumbnail"
+                         style="width:320px; height:380px;" />
+                </dd>
+            </div>
+            <div class="col-md-3">
+                <dd>
+                    @Html.DisplayFor(model => model.Id)
+                </dd>
+                <dd>
+                    <p>
+                        @Html.DisplayFor(model => model.Gov_tbl.Gov_Name)
+                    </p>
+                </dd>
+                <dd>
+                    <p>
+                        @Html.DisplayFor(model => model.MND_CAT.Category)
+                    </p>
+                </dd>
+
+                <dd>
+                    <p>
+                        @Html.DisplayFor(model => model.MND_ID)
+
+                    </p>
+                </dd>
+                <dd>
+                    <p>
+                        @Html.DisplayFor(model => model.MND_TEL)
+                    </p>
+                </dd>
+                <dd>
+                    <p>
+                        @Html.DisplayFor(model => model.START_DATE)
+
+                    </p>
+                </dd>
+                <dd>
+                    <p>
+                        @Html.DisplayFor(model => model.MND_ADD)
+
+                    </p>
+                </dd>
+
+            </div>
+            <div class="col-md-4">
+                <dt>
+                    <p>كود المندوب</p>
+                </dt>
+                <dt>
+                    <p>المحافظة</p>
+                </dt>
+                <dt>
+                    <p>نوع المندوب</p>
+                </dt>
+
+                <dt>
+                    <p>الرقم القومي</p>
+                </dt>
+
+                <dt>
+                    <p>التليفون</p>
+                </dt>
+
+                <dt>
+                    <p>تاريخ بدء العمل</p>
+                </dt>
+
+                <dt>
+                    <p>العنوان</p>
+                </dt>
+
+            </div>
+
+        </div>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("تعديل بيانات المندوب", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("قائمة المندوبين", "Index")
+</p>

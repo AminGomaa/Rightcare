@@ -1,0 +1,64 @@
+﻿@model IEnumerable<RightCareSite.Models.DataBase.Suply_tbl>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>قائمة الموردين</h2>
+
+<p>
+    @Html.ActionLink("اضافة مورد جديد", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th></th>
+
+        <th>
+            <p>
+                المحافظة
+            </p>
+        </th>
+
+        <th>
+            <p>
+                التليفون
+            </p>
+        </th>
+        <th>
+            <p>
+                كود المورد
+            </p>
+        </th>
+        <th>
+            <p>
+                الاسم
+            </p>
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("تعديل", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("تفاصيل", "Details", new { id = item.Id }) |
+            @Html.ActionLink("حذف", "Delete", new { id = item.Id })
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Governorate.Gov_Name)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+    </tr>
+}
+
+</table>

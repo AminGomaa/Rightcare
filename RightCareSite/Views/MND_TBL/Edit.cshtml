@@ -1,0 +1,149 @@
+﻿@model RightCareSite.Models.DataBase.MND_TBL
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>تعديل بيانات مندوب</h2>
+
+
+@using (Html.BeginForm("Edit", "MND_TBL", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <div class="alert alert-danger" id="error-div" style="display:none">
+        <span id="view-err">
+
+        </span>
+    </div>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.MND_REGON)
+    <div class="form-group">
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.MND_NAME, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MND_NAME, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(model => model.MND_NAME, "اسم المندوب", htmlAttributes: new { @class = "control-label col-md-2" })
+
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.MND_ID, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MND_ID, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(model => model.MND_ID, "الرقم القومي", htmlAttributes: new { @class = "control-label col-md-2" })
+
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.MND_TEL, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MND_TEL, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(model => model.MND_TEL, "التليفون", htmlAttributes: new { @class = "control-label col-md-2" })
+
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.MND_ADD, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MND_ADD, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(model => model.MND_ADD, "العنوان", htmlAttributes: new { @class = "control-label col-md-2" })
+
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <input type="file" name="upload" id="myImage" />
+            @Html.ValidationMessageFor(model => model.MND_REGON, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(model => model.MND_REGON, "صورة المندوب", htmlAttributes: new { @class = "control-label col-md-2" })
+
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.START_DATE, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.START_DATE, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(model => model.START_DATE, "تاريخ بدء العمل", htmlAttributes: new { @class = "control-label col-md-2" })
+
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            @Html.DropDownList("MND_CATId", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.MND_CATId, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(model => model.MND_CATId, "نوع المندوب", htmlAttributes: new { @class = "control-label col-md-2" })
+
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            @Html.DropDownList("Gov_tblId", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Gov_tblId, "", new { @class = "text-danger" })
+        </div>
+        @Html.LabelFor(model => model.Gov_tblId, "المحافظة", htmlAttributes: new { @class = "control-label col-md-2" })
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-8">
+            <input type="submit" value="حفظ" class="btn btn-default" id="save" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("قائمة المندوبين", "Index")
+</div>
+
+@section Scripts {
+
+    <script>
+        $(function () {
+            $("#save").click(function () {
+
+                ////Check if the input is Empty
+                //if ($("#myImage").val() == "") {
+                //    $("#error-div").fadeIn();
+                //    $("#view-err").append("رجاء قم باختيار صورةللمندوب");
+                //    return false;
+                //}
+
+                if ($("#myImage").val() != "") {
+                    //Check if the Image extension is valid
+                    var filename = document.getElementById("myImage").value;
+                    var extensionImg = filename.substr(filename.lastIndexOf('.') + 1);
+                    var validExtensions = ['jpg', 'png', 'gif', 'bmp'];
+                    if ($.inArray(extensionImg, validExtensions) == -1) {
+                        $("#error-div").fadeIn();
+                        $("#view-err").append("رجاء قم باختيار صورة بامتداد صحيح");
+                        return false;
+                    }
+
+                    //Check if the Image Size is valid (2 mb)
+                    var myFileSize = document.getElementById("myImage").files[0].size / 1024 / 1024;
+
+                    if (myFileSize > 2) {
+                        $("#error-div").fadeIn();
+                        $("#view-err").append("رجاء قم باختيار صورة حجمها أقل من 2 ميغا بايت");
+                        return false;
+                    }
+                }
+            });
+        });
+    </script>
+
+
+
+
+
+}

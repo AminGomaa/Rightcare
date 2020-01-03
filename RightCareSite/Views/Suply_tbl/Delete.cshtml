@@ -1,0 +1,26 @@
+﻿@model RightCareSite.Models.DataBase.Suply_tbl
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h3>هل انت متأكد من حذف المورد التالي؟؟</h3>
+<div>
+    <h3>
+        @Html.DisplayFor(model => model.Name)
+    </h3>
+    <hr />
+  
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="حذف" class="btn btn-danger" /> |
+            @Html.ActionLink("العودة لقائمة الموردين", "Index")
+        </div>
+    }
+</div>

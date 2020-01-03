@@ -1,0 +1,68 @@
+﻿@model RightCareSite.Models.DataBase.CUST_TBL
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>
+    @Html.DisplayFor(model => model.CUST_NAME)
+</h2>
+
+<div>
+   
+    <hr />
+    <dl class="dl-horizontal">
+        <div class="col-md-6">
+            <dd>
+                @Html.DisplayFor(model => model.Id)
+            </dd>
+            <p>
+        <dd>
+            @Html.DisplayFor(model => model.Governorate.Gov_Name)
+        </dd>
+        </p>
+        <p>
+        <dd>
+            @Html.DisplayFor(model => model.MND_TBL.MND_NAME)
+        </dd>
+        </p>
+        <p>
+        <dd>
+            @Html.DisplayFor(model => model.CUST_TEL)
+        </dd>
+        </p>
+        <p>
+        <dd>
+            @Html.DisplayFor(model => model.CUST_ADD)
+        </dd>
+        </p>
+</div>
+<div class="col-md-6">
+    <dt>
+        <p>كود العميل</p>
+    </dt>
+    <dt>
+        <p>المحافظة</p>
+    </dt>
+    <dt>
+        <p>المندوب</p>
+    </dt>
+    <dt>
+        <p>التليفون</p>
+    </dt>
+
+    <dt>
+        <p>العنوان</p>
+    </dt>
+
+</div>
+       
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("تعديل بيانات العميل", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("قائمة العملاء", "Index")
+</p>

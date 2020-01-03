@@ -1,0 +1,49 @@
+﻿@model RightCareSite.Models.DataBase.MND_TBL
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h3>هل تريد حذف المندوب التالي؟؟</h3>
+<div>
+    <h3>@Html.DisplayFor(model => model.MND_NAME)</h3>
+    <hr />
+    <dl class="dl-horizontal">
+        
+        <dd>
+            @Html.DisplayFor(model => model.Gov_tbl.Gov_Name)
+        </dd>
+
+        <dd>
+            @Html.DisplayFor(model => model.MND_CAT.Category)
+        </dd>
+
+        <dd>
+            @Html.DisplayFor(model => model.MND_ID)
+        </dd>
+
+        <dd>
+            @Html.DisplayFor(model => model.MND_TEL)
+        </dd>
+        <dd>
+            @Html.DisplayFor(model => model.MND_ADD)
+        </dd>
+
+         <dd>
+            @Html.DisplayFor(model => model.MND_REGON)
+        </dd>
+        <dd>
+            @Html.DisplayFor(model => model.START_DATE)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="حذف" class="btn btn-default" /> |
+            @Html.ActionLink("قائمة المندوبين", "Index")
+        </div>
+    }
+</div>

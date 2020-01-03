@@ -1,0 +1,63 @@
+﻿@model RightCareSite.Models.DataBase.Suply_tbl
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>
+    <dd>
+        @Html.DisplayFor(model => model.Name)
+    </dd>
+</h2>
+
+<div>
+  
+    <hr />
+    <dl class="dl-horizontal">
+        <div class="col-md-6">
+            <dd>
+                @Html.DisplayFor(model => model.Id)
+            </dd>
+            <p>
+            <dd>
+                @Html.DisplayFor(model => model.Governorate.Gov_Name)
+            </dd>
+            </p>
+            <p>
+            <dd>
+                @Html.DisplayFor(model => model.Phone)
+            </dd>
+        </p>
+        <p>
+            <dd>
+                @Html.DisplayFor(model => model.Address)
+            </dd>
+        </p>
+        </div>
+        <div class="col-md-6">
+            <dt>
+               <p>كود المورد</p>
+            </dt>
+            <dt>
+                <p>المحافظة</p>
+            </dt>
+
+            <dt>
+                <p>التليفون</p>
+            </dt>
+
+            <dt>
+                <p>العنوان</p>
+            </dt>
+        </div>
+
+       
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("تعديل", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("قائمة الموردين", "Index")
+</p>

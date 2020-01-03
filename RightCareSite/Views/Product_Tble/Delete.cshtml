@@ -5,17 +5,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 align="right">حذف صنف </h2>
 
-<h3 align="right">هل تريد حذف الصنف ؟؟</h3>
+
+<h3 align="right">هل تريد حذف الصنف التالي ؟؟</h3>
 <div align="right">
     <hr />
     <dl class="dl-horizontal">
 
-        <dd>
+        <h3>
+         <dd>
             @Html.DisplayFor(model => model.Name)
         </dd>
-        
+        </h3>
         <dd>
             @Html.DisplayFor(model => model.SelPrice)
         </dd>
@@ -26,7 +27,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="حذف" class="btn btn-default" /> |
+            <input type="submit" value="حذف" class="btn btn-danger" /> |
             @Html.ActionLink("العودة لقائمة الاصناف", "Index")
         </div>
     }

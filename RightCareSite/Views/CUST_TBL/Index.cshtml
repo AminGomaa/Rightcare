@@ -1,0 +1,58 @@
+﻿@model IEnumerable<RightCareSite.Models.DataBase.CUST_TBL>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>قائمة العملاء</h2>
+
+<p>
+    @Html.ActionLink("اضافة عميل جديد", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th></th>
+        <th>
+            <p>المحافظة</p>
+        </th>
+        <th>
+            <p>المندوب</p>
+        </th>
+
+        
+        <th>
+            <p>كود العميل</p>
+
+        </th>
+        <th>
+            <p>الاسم</p>
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("تعديل", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("تفاصيل", "Details", new { id = item.Id }) |
+            @Html.ActionLink("حذف", "Delete", new { id = item.Id })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Governorate.Gov_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MND_TBL.MND_NAME)
+        </td>
+
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CUST_NAME)
+        </td>
+
+    </tr>
+}
+
+</table>

@@ -169,25 +169,32 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Category_tblController.cs" />
+    <Compile Include="Controllers\CUST_TBLController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MND_TBLController.cs" />
     <Compile Include="Controllers\Product_TbleController.cs" />
+    <Compile Include="Controllers\Stor_tblController.cs" />
+    <Compile Include="Controllers\Suply_tblController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202001011950058_Intial.cs" />
-    <Compile Include="Migrations\202001011950058_Intial.Designer.cs">
-      <DependentUpon>202001011950058_Intial.cs</DependentUpon>
+    <Compile Include="Migrations\202001031758015_intial.cs" />
+    <Compile Include="Migrations\202001031758015_intial.Designer.cs">
+      <DependentUpon>202001031758015_intial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DataBase\Buy_tbl.cs" />
     <Compile Include="Models\DataBase\Category_tbl.cs" />
     <Compile Include="Models\DataBase\CUST_TBL.cs" />
+    <Compile Include="Models\DataBase\Governorate.cs" />
     <Compile Include="Models\DataBase\Gov_tbl.cs" />
     <Compile Include="Models\DataBase\MND_CAT.cs" />
     <Compile Include="Models\DataBase\MND_TBL.cs" />
     <Compile Include="Models\DataBase\Product_Tble.cs" />
+    <Compile Include="Models\DataBase\Rbuy_tbl.cs" />
+    <Compile Include="Models\DataBase\Rsal_tbl.cs" />
     <Compile Include="Models\DataBase\Sal_tbl.cs" />
     <Compile Include="Models\DataBase\Stor_tbl.cs" />
     <Compile Include="Models\DataBase\Suply_tbl.cs" />
@@ -221,6 +228,7 @@
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />
     <Content Include="Scripts\bootstrap.js.map" />
     <Content Include="Scripts\bootstrap.min.js.map" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\gulpfile.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -283,9 +291,30 @@
     <Content Include="Views\Category_tbl\Details.cshtml" />
     <Content Include="Views\Category_tbl\Edit.cshtml" />
     <Content Include="Views\Category_tbl\Index.cshtml" />
+    <Content Include="Views\MND_TBL\Create.cshtml" />
+    <Content Include="Views\MND_TBL\Delete.cshtml" />
+    <Content Include="Views\MND_TBL\Details.cshtml" />
+    <Content Include="Views\MND_TBL\Edit.cshtml" />
+    <Content Include="Views\MND_TBL\Index.cshtml" />
+    <Content Include="Views\CUST_TBL\Create.cshtml" />
+    <Content Include="Views\CUST_TBL\Delete.cshtml" />
+    <Content Include="Views\CUST_TBL\Details.cshtml" />
+    <Content Include="Views\CUST_TBL\Edit.cshtml" />
+    <Content Include="Views\CUST_TBL\Index.cshtml" />
+    <Content Include="Views\Suply_tbl\Create.cshtml" />
+    <Content Include="Views\Suply_tbl\Delete.cshtml" />
+    <Content Include="Views\Suply_tbl\Details.cshtml" />
+    <Content Include="Views\Suply_tbl\Edit.cshtml" />
+    <Content Include="Views\Suply_tbl\Index.cshtml" />
+    <Content Include="Views\Stor_tbl\Create.cshtml" />
+    <Content Include="Views\Stor_tbl\Delete.cshtml" />
+    <Content Include="Views\Stor_tbl\Details.cshtml" />
+    <Content Include="Views\Stor_tbl\Edit.cshtml" />
+    <Content Include="Views\Stor_tbl\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -301,8 +330,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202001011950058_Intial.resx">
-      <DependentUpon>202001011950058_Intial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202001031758015_intial.resx">
+      <DependentUpon>202001031758015_intial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

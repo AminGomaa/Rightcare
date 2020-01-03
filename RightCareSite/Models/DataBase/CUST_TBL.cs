@@ -11,11 +11,12 @@ namespace RightCareSite.Models.DataBase
         public string CUST_NAME { get; set; }
         public string CUST_TEL { get; set; }
         public string CUST_ADD { get; set; }
-        public string CUS_REGON { get; set; }
         public int MND_TBLId { get; set; }
+        public int GovernorateId { get; set; }
+        public virtual Governorate Governorate { get; set; }
         public virtual MND_TBL MND_TBL { get; set; }
         public virtual ICollection<Sal_tbl> Sal_Tbls { get; set; }
-        public virtual ICollection<Stor_tbl> Stor_Tbls { get; set; }
+        public virtual ICollection<Rsal_tbl> Rsal_Tbls { get; set; }
 
       
 

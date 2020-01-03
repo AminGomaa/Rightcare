@@ -3,7 +3,7 @@
 <head align="right">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Right Care</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -26,7 +26,10 @@
                     <li>@Html.ActionLink("عن رايت كير", "About", "Home")</li>
                     <li>@Html.ActionLink("اتصل بنا", "Contact", "Home")</li>
                     <li>@Html.ActionLink("المنتجات", "Index", "Product_Tble")</li>
-                    <li>@Html.ActionLink("المندوبين","Index","MND_TBL")</li>
+                    <li>@Html.ActionLink("المندوبين", "Index", "MND_TBL")</li>
+                    <li>@Html.ActionLink("العملاء", "Index", "CUST_TBL")</li>
+                    <li>@Html.ActionLink("الموردين", "Index", "Suply_tbl")</li>
+
                 </ul>
 
             </div>

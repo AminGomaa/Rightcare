@@ -40,5 +40,6 @@ namespace RightCareSite.Models
         public DbSet<Sal_tbl> Sal_Tbls { get; set; }
         public DbSet<Buy_tbl> buy_Tbls { get; set; }
         public DbSet<Gov_tbl> Gov_tbls { get; set; }
+        public DbSet<Governorate> Governorates { get; set; }
     }
 }
