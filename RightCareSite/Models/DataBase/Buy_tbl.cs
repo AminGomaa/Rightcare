@@ -9,9 +9,11 @@ namespace RightCareSite.Models.DataBase
     public class Buy_tbl
     {
         public int Id { get; set; }
-        public float Value { get; set; }
-        public int Suply_TblId { get; set; }
 
-        public virtual Suply_tbl Suply_Tbl { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime OrderDate { get; set; }
+        public int Sup_Id { get; set; }
+        public string Sup_Name{get;set;}
+
     }
 }

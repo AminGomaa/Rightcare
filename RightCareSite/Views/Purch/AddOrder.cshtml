@@ -1,0 +1,208 @@
+﻿@using RightCareSite.Models
+@model RightCareSite.Models.ViewModel.OrderViewModel
+@{
+    ViewBag.Titel = "AddOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ApplicationDbContext db = new ApplicationDbContext();
+    SelectList productsList = new SelectList(db.product_Tbles, "Id", "Name");
+    SelectList custList = new SelectList(db.suply_Tbls, "Id", "NAME");
+    int orderID = db.buy_Tbls.Max(o => o.Id);
+
+}
+
+<div>
+    <h2>فاتورة مشتريات</h2>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        @Html.DropDownList("custLists", custList, "-- اختر المورد -- ", new { @class = "custLists form-control" })
+
+    </div>
+
+
+</div>
+
+<table class="table table-responsive" id="tblItems">
+    <tr>
+        <th>
+
+        </th>
+
+        <th>
+
+        </th>
+        <th>
+
+        </th>
+        <th>
+
+        </th>
+        <th>
+
+        </th>
+        <th></th>
+    </tr>
+
+    <tr id="MainRow">
+        <td></td>
+        <td style="width:25%">
+            @Html.DropDownList("productsItems", productsList, "-- اختر الصنف -- ", new { @class = "productsItems form-control" })
+            <span class="error text-danger"></span>
+        </td>
+        <td style="width:10%">
+            <input type="text" id="price" class="price form-control" placeholder="السعر" />
+            <span class="error text-danger"></span>
+        </td>
+        <td style="width:15%">
+            <input type="text" id="quantity" class="quantity form-control" placeholder="الكمية" />
+            <span class="error text-danger"></span>
+        </td>
+        <td style="width:25%">
+            <input type="text" id="total" class="total form-control" disabled="disabled" />
+        </td>
+        <td style="width:15%">
+            <button type="button" class="btn btn-success" id="add">Add</button>
+        </td>
+    </tr>
+</table>
+<table id="OrderItems" class="table table-bordered">
+
+    <tbody></tbody>
+</table>
+<span class="text-danger" id="orderMessage"></span>
+<button type="button" class="btn btn-success" id="submit" onclick="@Url.Action("Details", "Purch", new { id = orderID })">حفظ الفاتورة</button>
+
+<a class="btn btn-success " href="@Url.Action("Index","Purch")">الفواتير</a>
+
+@section Scripts {
+    <script>
+
+        $(function () {
+            $("#add").click(function () {
+                var isValid = true;
+                if (document.getElementById("custLists").selectedIndex == 0) {
+                    $("#custLists").siblings('span.error').text('اختر العميل');
+                    isValid = false;
+                }
+                else {
+                    $('#custLists').siblings('span.error').text('');
+                }
+                if (document.getElementById("productsItems").selectedIndex == 0) {
+                    $('#productsItems').siblings('span.error').text('Please select item');
+                    isValid = false;
+                }
+                else {
+                    $('#productsItems').siblings('span.error').text('');
+                }
+
+                if (!($("#quantity").val().trim() != '' && (parseInt($('#quantity').val()) || 0))) {
+                    $('#quantity').siblings('span.error').text('Please enter quantity');
+                    isValid = false;
+                }
+                else {
+                    $('#quantity').siblings('span.error').text('');
+                }
+
+                if (!($("#price").val().trim() != '' && (parseFloat($('#price').val()) || 0))) {
+                    $('#price').siblings('span.error').text('Please enter price');
+                    isValid = false;
+                }
+                else {
+                    $('#price').siblings('span.error').text('');
+                }
+
+                if (isValid) {
+
+                    var total = parseInt($("#quantity").val()) * parseFloat($("#price").val());
+
+                    $("#total").val(total);
+
+
+                    var ProductID = document.getElementById("productsItems").value;
+
+                    var $newRow = $("#MainRow").clone().removeAttr('id');
+
+                    $('.productsItems', $newRow).val(ProductID);
+
+                    $('#add', $newRow).addClass('remove').html('Remove').removeClass('btn-success').addClass('btn-danger');
+
+                    //$('#productsItems, #price, #quantity', $newRow).attr('disabled', true);
+                    $('#price, #quantity', $newRow).attr('disabled', true);
+
+                    $("#productsItems, #price, #quantity, #total", $newRow).removeAttr("id");
+                    $("span.error", $newRow).remove();
+
+                    $("#OrderItems").append($newRow[0]);
+
+                    document.getElementById("productsItems").selectedIndex = 0;
+                    $("#price").val('');
+                    $("#quantity").val('');
+                    $("#total").val('');
+
+                }
+            });
+
+            $("#OrderItems").on("click", ".remove", function () {
+                $(this).parents("tr").remove();
+
+            });
+
+            $("#submit").click(function () {
+                var isValid = true;
+
+                var itemsList = [];
+
+                $("#OrderItems tr").each(function () {
+                    var item = {
+
+                        ProductID: $('select.productsItems', this).val(),
+                        Price: $('.price', this).val(),
+                        Quantity: $('.quantity', this).val(),
+                        TotalPrice: $('.total', this).val(),
+
+
+                    }
+
+                    itemsList.push(item);
+                });
+
+                if (itemsList.length == 0) {
+                    $('#orderMessage').text('Please add items !');
+                    isValid = false;
+                }
+
+                if (isValid) {
+                    var data = {
+                    Cust_TBLID: $("#custLists").val(),
+                        Items: itemsList
+                    }
+
+                    $("#submit").attr("disabled", true);
+                    $("#submit").html('انتظر قليلا ...');
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/Purch/AddOrderAndOrderDetials',
+                        data: JSON.stringify(data),
+                        contentType: 'application/json',
+                        success: function (data) {
+                            if (data.status) {
+                                $('#orderMessage').text(data.message);
+                                $("#submit").attr("disabled", false);
+                                $("#submit").html('Submit');
+                            }
+                            else {
+                                $('#orderMessage').text(data.message);
+                                $("#submit").attr("disabled", false);
+                                $("#submit").html('Submit');
+                            }
+                        }
+                    });
+                }
+            });
+
+        });
+
+    </script>
+}
+

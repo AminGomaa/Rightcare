@@ -9,9 +9,10 @@ namespace RightCareSite.Models.DataBase
     public class Sal_tbl
     {
         public int Id { get; set; }
-        public int Cust_TBLId { get; set; }
-        public float Value { get; set; }
-
-        public virtual CUST_TBL CUST_TBL { get; set; }
+        public int Cust_Id { get; set; }
+        public string Cust_Name { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime OrderDate { get; set; }
+       
     }
 }

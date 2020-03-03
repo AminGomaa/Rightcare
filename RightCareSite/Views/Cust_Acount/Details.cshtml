@@ -1,0 +1,59 @@
+﻿@model RightCareSite.Models.DataBase.Cust_Acount
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ايصال تسديد عميل</h2>
+
+<div align="right">
+    <hr />
+    <dl class="row  table-bordered">
+        <dd class="col-md-6">
+            @Html.DisplayFor(model => model.EslNo)
+        </dd>
+        <dt class="col-md-2">
+            رقم الايصال
+        </dt>
+        <dd class="col-md-6">
+            @Html.DisplayFor(model => model.CUST_TBL.CUST_NAME)
+        </dd>
+
+        <dt class="col-md-2">
+            العميل
+        </dt>
+        <dd class="col-md-6">
+            @Html.DisplayFor(model => model.CUST_TBLId)
+        </dd>
+        <dt class="col-md-2">
+            كود العميل
+        </dt>
+
+
+        <dd class="col-md-6">
+            @Html.DisplayFor(model => model.Amount)
+        </dd>
+        <dt class="col-md-2">
+            المبلغ
+        </dt>
+
+
+
+
+        <dd class="col-md-6">
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt class="col-md-2">
+            التاريخ
+        </dt>
+
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("تعديل", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("رجوع", "Index")
+</p>

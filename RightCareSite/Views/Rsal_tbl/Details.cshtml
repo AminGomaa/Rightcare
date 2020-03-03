@@ -1,0 +1,93 @@
+﻿@model RightCareSite.Models.DataBase.Rsal_tbl
+@using RightCareSite.Models
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ApplicationDbContext db = new ApplicationDbContext();
+    var name = db.rsal_Tbls.Find(Model.Id);
+    var invoice = db.SaleDetails.Where(s => s.Rsal_TblId == Model.Id).ToList();
+    var total = db.SaleDetails.Where(s => s.Rsal_TblId == Model.Id).Sum(s => s.Amount);
+
+
+}
+<div class=" row" align="right">
+    <div class="col-md-4"><h3>@name.Id</h3></div>
+    <div class="col-md-4"><h3>مرتجع مبيعات رقم</h3></div>
+</div>
+<br />
+<div class=" row">
+    <div class="col-md-2"><h4>@name.OrderDate.ToShortDateString()</h4></div>
+    <div class="col-md-8">
+        <a href="@Url.Action("DETAILS","CUST_TBL",new { id=name.Cust_Id})"><h4>@name.Cust_Name</h4></a>
+    </div>
+</div>
+<br />
+<table class="table table-bordered">
+    <tr>
+        <th>
+            المبلغ
+        </th>
+
+        <th>
+            السعر
+        </th>
+        <th>
+            الكمية
+        </th>
+
+        <th>
+            الصنف
+        </th>
+
+
+    </tr>
+
+    @foreach (var v in invoice)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => v.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => v.Price)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => v.QtyIn)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => v.Product_Tble.Name)
+            </td>
+
+
+
+        </tr>
+
+    }
+</table>
+
+
+<div class="row">
+    <div class="col-md-1">
+        <h4>@total</h4>
+    </div>
+    <div class="col-md-2">
+        <h4>قيمة المرتجع</h4>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-m-2">
+        <a href="@Url.Action("ReInvoice",new { id=Model.Id})">طباعة المرتجع </a><br /><a href="@Url.Action("Index","Rsal_tbl")">قائمة المرتجعات</a>
+
+    </div>
+    <div class="col-md-2">
+    </div>
+    @*<input class="no-print" type="button" onclick="window.print();return false;" value="طباعة" />*@
+
+
+</div>
+
+

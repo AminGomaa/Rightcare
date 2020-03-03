@@ -1,0 +1,68 @@
+﻿@model RightCareSite.Models.DataBase.SaleDetails
+@using RightCareSite.Models
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ApplicationDbContext db = new ApplicationDbContext();
+    var name = db.rsal_Tbls.Find(Model.Rsal_TblId);
+    var invoice = db.SaleDetails.Where(s => s.Rsal_TblId == Model.Rsal_TblId).ToList();
+    var total = db.SaleDetails.Where(s => s.Rsal_TblId == Model.Rsal_TblId).Sum(s => s.Amount);
+
+}
+@name.Id  <a>مرتجع مبيع رقم</a>
+<br />
+  @name.Cust_Name  
+<br />
+
+@name.OrderDate  
+<table class="table">
+    <tr>
+        <th>
+            الصنف
+        </th>
+        <th>
+            الكمية
+        </th>
+
+        <th>
+            السعر
+        </th>
+        <th>
+            المبلغ
+        </th>
+
+
+        <th></th>
+    </tr>
+
+    @foreach (var v in invoice)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => v.Product_Tble.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => v.QtyIn)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => v.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => v.Amount)
+            </td>
+
+
+
+        </tr>
+
+    }
+</table>
+<div>
+    <a>@total</a>  <a>قيمة المرتجع</a>
+</div>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

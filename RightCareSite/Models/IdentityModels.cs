@@ -36,10 +36,20 @@ namespace RightCareSite.Models
         public DbSet<Product_Tble> product_Tbles { get; set; }
         public DbSet<Suply_tbl> suply_Tbls { get; set; } 
         public DbSet<Category_tbl> Category_Tbls { get; set; }
-        public DbSet<Stor_tbl> stor_Tbls { get; set; }
+      
         public DbSet<Sal_tbl> Sal_Tbls { get; set; }
         public DbSet<Buy_tbl> buy_Tbls { get; set; }
         public DbSet<Gov_tbl> Gov_tbls { get; set; }
         public DbSet<Governorate> Governorates { get; set; }
+        public DbSet<Stock> stocks { get; set; }
+        public DbSet<Cust_Acount> cust_Acounts { get; set; }
+        public DbSet<Sub_Acount> sub_Acounts { get; set; } 
+        public DbSet<SaleDetails> SaleDetails { get; set; }
+        public DbSet<MStockMotion> mStockMotions { get; set; }
+        public DbSet<MainStore> mainStores { get; set; }
+        public DbSet<Rsal_tbl> rsal_Tbls { get; set; }
+        public DbSet<ReBUy_tbl> rbuy_Tbls { get; set; }
+        public DbSet<MndStkOut> mndStkOuts { get; set; }
+        public DbSet<MndStkIn> mndStkIns { get; set; }
     }
 }

@@ -15,9 +15,8 @@ namespace RightCareSite.Models.DataBase
         public int GovernorateId { get; set; }
         public virtual Governorate Governorate { get; set; }
         public virtual MND_TBL MND_TBL { get; set; }
-        public virtual ICollection<Sal_tbl> Sal_Tbls { get; set; }
-        public virtual ICollection<Rsal_tbl> Rsal_Tbls { get; set; }
-
+        public ICollection<Cust_Acount> cust_Acounts { get; set; }
+       
       
 
     }

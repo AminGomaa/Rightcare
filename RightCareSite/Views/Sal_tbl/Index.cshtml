@@ -1,0 +1,52 @@
+﻿@model IEnumerable<RightCareSite.Models.DataBase.Sal_tbl>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>فواتير المبيعات</h2>
+<p>
+    <a href="@Url.Action("AddOrder", "Order")" >بيع جديد</a>
+</p>
+
+<table class="table table-bordered">
+    <tr>
+        <th>
+رقم الفاتورة
+        </th>
+        <th>
+            كودالعميل
+        </th>
+        <th>
+اسم العميل
+        </th>
+        <th>
+تاريخ الفاتورة
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem=>item.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cust_Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Cust_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OrderDate)
+        </td>
+        <td>
+            @Html.ActionLink("تفاصيل الفاتورة", "Details", new { id = item.Id }) |
+            @Html.ActionLink("طباعة", "Invoice", new { id=item.Id})
+
+        </td>
+    </tr>
+}
+
+</table>

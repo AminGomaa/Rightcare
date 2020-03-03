@@ -1,0 +1,62 @@
+﻿@model IEnumerable<RightCareSite.Models.DataBase.Cust_Acount>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>تسديدات العملاء</h3>
+<p>
+    @Html.ActionLink("تسديد جديد", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            العميل
+        </th>
+        <th>
+            كود العميل
+        </th>
+
+        <th>
+            المبلغ
+        </th>
+        <th>
+            التاريخ
+        </th>
+        <th>
+            رقم ايصال التسديد
+        </th>
+
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.CUST_TBL.CUST_NAME)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CUST_TBL.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Amount)
+
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EslNo)
+        </td>
+        <td>
+            @Html.ActionLink("تعديل", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("نفاصيل", "Details", new { id = item.Id }) |
+            @Html.ActionLink("حذف", "Delete", new { id = item.Id })
+        </td>
+    </tr>
+}
+
+</table>

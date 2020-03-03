@@ -7,8 +7,10 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using CrystalDecisions.CrystalReports.Engine;
 using RightCareSite.Models;
 using RightCareSite.Models.DataBase;
+
 
 namespace RightCareSite.Controllers
 {
@@ -137,7 +139,47 @@ namespace RightCareSite.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        public ActionResult MndonReport()
+        {
+            DataSet1 ds = new DataSet1();
+            ds.Clear();
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "SalOrderRpt.rpt"));
+            rd.SetDataSource(ds);
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                return File(stream, "application/pdf", "قائمة المندوبين.pdf");
+            }
+            catch
+            {
+                throw;
+            }
+        }
+        public ActionResult SelctMndReport(int? id)
+        {
 
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "Rpp.rpt"));
+            rd.SetDataSource(db.MND_TBLs.Find(id));
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                return File(stream, "application/pdf", "قائمة المندوبين.pdf");
+            }
+            catch
+            {
+                throw;
+            }
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

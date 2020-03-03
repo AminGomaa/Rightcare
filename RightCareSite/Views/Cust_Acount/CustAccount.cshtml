@@ -1,0 +1,73 @@
+﻿@model IEnumerable<RightCareSite.Models.DataBase.Cust_Acount>
+@using RightCareSite.Models
+
+@{
+    ViewBag.Title = "CustAccount";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ApplicationDbContext db = new ApplicationDbContext();
+    var cust = Model.Select(x => x.CUST_TBL.CUST_NAME).FirstOrDefault();
+    var total = Model.Sum(x => x.Amount);
+    var custId = Model.Select(x => x.CUST_TBLId).FirstOrDefault();
+
+}
+<h3>كشف حساب عميل</h3>
+<br />
+
+<h3>
+
+    <p align="center">
+        <a href="@Url.Action("Details","CUST_TBL",new { id=custId})">@cust </a>
+    </p>
+
+
+</h3>
+<table class="table table-bordered">
+    <tr>
+
+        <th>
+            رقم فاتورة البيع
+        </th>
+        <th>
+            رقم المرتجع
+        </th>
+
+        <th>
+            رقم التسديد
+        </th>
+        <th>
+            المبلغ
+        </th>
+        <th>
+            التاريخ
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.SalNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RslNo)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.EslNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+
+        </tr>
+    }
+
+</table>
+<div align="right"><h3>@total</h3></div><div align="left"><a href="@Url.Action("Cust_Account","CUST_TBL",new { id=custId})"><h3>طباعة</h3> </a></div>
+
