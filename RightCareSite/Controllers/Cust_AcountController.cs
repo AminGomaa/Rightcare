@@ -32,6 +32,7 @@ namespace RightCareSite.Controllers
             return View(cust_Acounts.ToList());
         }
         
+
         // GET: Cust_Acount/Details/5
         public ActionResult Details(int? id)
         {

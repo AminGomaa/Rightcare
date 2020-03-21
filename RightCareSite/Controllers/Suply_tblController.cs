@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using CrystalDecisions.CrystalReports.Engine;
 using RightCareSite.Models;
 using RightCareSite.Models.DataBase;
 
@@ -128,6 +130,38 @@ namespace RightCareSite.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        public ActionResult Sub_Account(int? id)
+        {
+            var query = (from s in db.CUST_TBLs
+                         join sd in db.cust_Acounts on s.Id equals sd.CUST_TBLId
+                         where s.Id == id
+                         select new
+                         {
+                             Id = s.Id,
+                             CUST_NAME = s.CUST_NAME,
+                             SalNo = sd.SalNo,
+                             RslNo = sd.RslNo,
+                             Amount = sd.Amount,
+                             EslNo = sd.EslNo,
+                             Date = sd.Date
+                         }).ToList();
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "CustomerAccountRpt.rpt"));
+            rd.SetDataSource(query);
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+            try
+            {
+                Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, SeekOrigin.Begin);
+                return File(stream, "application/pdf", "كشف حساب عميل.pdf");
+            }
+            catch
+            {
+                throw;
+            }
         }
     }
 }

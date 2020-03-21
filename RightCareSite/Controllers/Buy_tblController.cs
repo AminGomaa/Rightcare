@@ -126,16 +126,16 @@ namespace RightCareSite.Controllers
                          select new
                          {
                              Id = s.Id,
-                             Expr1 = sd.Product_TbleId,
+                             Product_TbleId = sd.Product_TbleId,
                              Name = sd.Product_Tble.Name,
-                             Sub_Name = s.Sup_Name,
+                             Sup_Name = s.Sup_Name,
                              OrderDate = s.OrderDate,
                              QtyIn = sd.QtyIn,
                              Price = sd.Price,
                              Amount = sd.Amount
                          }).ToList();
             ReportDocument rd = new ReportDocument();
-            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "SalInvoice.rpt"));
+            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "PurchInvoiceRpt.rpt"));
             rd.SetDataSource(query);
             Response.Buffer = false;
             Response.ClearContent();
@@ -144,7 +144,7 @@ namespace RightCareSite.Controllers
             {
                 Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
                 stream.Seek(0, SeekOrigin.Begin);
-                return File(stream, "application/pdf", "فاتورة مبيعات.pdf");
+                return File(stream, "application/pdf", "فاتورة مشتريات.pdf");
             }
             catch
             {

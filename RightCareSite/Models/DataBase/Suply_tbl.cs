@@ -13,6 +13,7 @@ namespace RightCareSite.Models.DataBase
         public string Address { get; set; }
         public int GovernorateId { get; set; }
         public virtual Governorate Governorate { get; set; }
-     
+        public virtual ICollection<Sub_Acount> sub_Acounts { get; set; }
+
     }
 }

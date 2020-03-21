@@ -45,7 +45,6 @@ namespace RightCareSite.Models
         public DbSet<Cust_Acount> cust_Acounts { get; set; }
         public DbSet<Sub_Acount> sub_Acounts { get; set; } 
         public DbSet<SaleDetails> SaleDetails { get; set; }
-        public DbSet<MStockMotion> mStockMotions { get; set; }
         public DbSet<MainStore> mainStores { get; set; }
         public DbSet<Rsal_tbl> rsal_Tbls { get; set; }
         public DbSet<ReBUy_tbl> rbuy_Tbls { get; set; }

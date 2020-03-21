@@ -48,30 +48,22 @@ namespace RightCareSite.Controllers
                         {
 
 
-                       MainStore orderDetails = new MainStore()
+                            MainStore orderDetails = new MainStore()
                             {
-                             Buy_tblId = orderID,
+                                Buy_tblId = orderID,
                                 Product_TbleId = item.ProductID,
-                                Price = item.Quantity,
-                                QtyIn = Convert.ToInt32(item.Price),
+                                Price = Convert.ToInt32(item.Price),
+                                QtyIn = item.Quantity,
                                 QtyOut = 0,
-                                Amount = item.TotalPrice
-
-
-                            };
-                         MStockMotion stock = new MStockMotion()
-                            {
-                                Prod_Id = item.ProductID,
-                                StQty = item.Quantity,
-                                Case = "مشتريات",
-                                Date = System.DateTime.Now,
-                                MndId = 0,
-                             SubId = orderViewModel.Cust_TBLId
+                                Amount = item.TotalPrice,
+                                Date = DateTime.Now
 
                             };
+                            var stck = db.product_Tbles.Where(p => p.Id == item.ProductID).FirstOrDefault();
+                            stck.SQty = stck.SQty + item.Quantity;
                             Sub_Acount sub = new Sub_Acount()
                             {
-                             SupId= orderViewModel.Cust_TBLId,
+                             Suply_TblId= orderViewModel.Cust_TBLId,
                              ByNo = orderID,
                               
                                 Amount = item.TotalPrice,
@@ -80,7 +72,6 @@ namespace RightCareSite.Controllers
 
 
                             db.mainStores.Add(orderDetails);
-                            db.mStockMotions.Add(stock);
                             db.sub_Acounts.Add(sub);
 
 
@@ -132,33 +123,27 @@ namespace RightCareSite.Controllers
                             {
                                ReBUy_tblId = orderID,
                                 Product_TbleId = item.ProductID,
-                                Price = item.Quantity,
-                                QtyOut = Convert.ToInt32(item.Price),
+                                Price = item.Price,
+                                QtyOut = item.Quantity,
                                 QtyIn = 0,
-                                Amount = item.TotalPrice
-                            };
-                          MStockMotion stock = new MStockMotion()
-                            {
-                                Prod_Id = item.ProductID,
-                                StQty = item.Quantity,
-                                Case = "مردودات مشتريات",
-                                Date = System.DateTime.Now,
-                               SubId = orderViewModel.Cust_TBLId
+                                Amount = item.TotalPrice,
+                            Date = DateTime.Now
 
-                            };
-                      Sub_Acount sub = new Sub_Acount()
+                        };
+                            var stck = db.product_Tbles.Where(p => p.Id == item.ProductID).FirstOrDefault();
+                            stck.SQty = stck.SQty + item.Quantity;
+                            Sub_Acount sub = new Sub_Acount()
                             {
-                             SupId = orderViewModel.Cust_TBLId,
-                               RbyNo=orderID,
-                               ByNo=0,
+                          Suply_TblId = orderViewModel.Cust_TBLId,
+                                RbyNo=orderID,
+                                ByNo=0,
                                 EslNo = 0,
                                 Amount = -item.TotalPrice,
                                 Date = System.DateTime.Now
                             };
 
-
+                           
                             db.mainStores.Add(orderDetails);
-                            db.mStockMotions.Add(stock);
                             db.sub_Acounts.Add(sub);
 
 
@@ -204,7 +189,7 @@ namespace RightCareSite.Controllers
 
                     if (db.SaveChanges() > 0)
                     {
-                        int orderID = db.buy_Tbls.Max(o => o.Id);
+                        int orderID = db.mndStkIns.Max(o => o.Id);
 
                         foreach (var item in orderViewModel.Items)
                         {
@@ -214,28 +199,28 @@ namespace RightCareSite.Controllers
                             {
                                 MndStkInId = orderID,
                                 Product_TbleId = item.ProductID,
-                                Price = item.Quantity,
-                                QtyOut = Convert.ToInt32(item.Price),
+                                Price = item.Price,
+                                QtyOut = item.Quantity,
                                 QtyIn = 0,
-                                
+                                Date = DateTime.Now,
                                 Amount = item.TotalPrice
 
-
                             };
-                            MStockMotion stock = new MStockMotion()
+                            Stock stock = new Stock()
                             {
-                                Prod_Id = item.ProductID,
-                                StQty = -item.Quantity,
-                                Case = "منصرف للمندوب",
-                                Date = System.DateTime.Now,
-                                SubId = 0,
-                                MndId = orderViewModel.Cust_TBLId
+                                Prod_Id=item.ProductID,
+                                MndId=mndname.Id,
+                                StQty=item.Quantity,
+                                Date=DateTime.Now,
+                                Case="منصرف لمندوب",
+                                Cust_Id=0
 
                             };
-                    
-                           db.mainStores.Add(orderDetails);
-                            db.mStockMotions.Add(stock);
 
+                            var stck = db.product_Tbles.Where(p => p.Id == item.ProductID).FirstOrDefault();
+                            stck.SQty = stck.SQty - item.Quantity;
+                            db.mainStores.Add(orderDetails);
+                            db.stocks.Add(stock);
 
                         }
 
@@ -268,18 +253,18 @@ namespace RightCareSite.Controllers
                 {
                     var mndname = db.MND_TBLs.Find(orderViewModel.Cust_TBLId);
 
-                    MndStkIn order = new MndStkIn()
+               MndStkOut  order = new MndStkOut()
                     {
                         OrderDate = System.DateTime.Now,
                         MndId = orderViewModel.Cust_TBLId,
                         MndName = mndname.MND_NAME
                     };
 
-                    db.mndStkIns.Add(order);
+                    db.mndStkOuts.Add(order);
 
                     if (db.SaveChanges() > 0)
                     {
-                        int orderID = db.buy_Tbls.Max(o => o.Id);
+                        int orderID = db.mndStkOuts.Max(o => o.Id);
 
                         foreach (var item in orderViewModel.Items)
                         {
@@ -287,29 +272,31 @@ namespace RightCareSite.Controllers
 
                             MainStore orderDetails = new MainStore()
                             {
-                                MndStkInId = orderID,
+                                MndStkOutId = orderID,
                                 Product_TbleId = item.ProductID,
-                                Price = item.Quantity,
-                                QtyIn = Convert.ToInt32(item.Price),
+                                Price = item.Price,
+                                QtyIn = item.Quantity,
                                 QtyOut = 0,
+                                Date = DateTime.Now,
 
                                 Amount = item.TotalPrice
 
 
                             };
-                            MStockMotion stock = new MStockMotion()
+                            Stock stock = new Stock()
                             {
                                 Prod_Id = item.ProductID,
-                                StQty = item.Quantity,
+                                MndId = mndname.Id,
+                                StQty = -item.Quantity,
+                                Date = DateTime.Now,
                                 Case = "مرتجع مندوب",
-                                Date = System.DateTime.Now,
-                                SubId = 0,
-                                MndId = orderViewModel.Cust_TBLId
+                                Cust_Id = 0
 
                             };
-
+                            var stk = db.product_Tbles.Where(x => x.Id == item.ProductID).FirstOrDefault();
+                            stk.SQty = stk.SQty + item.Quantity;
+                            db.stocks.Add(stock);
                             db.mainStores.Add(orderDetails);
-                            db.mStockMotions.Add(stock);
 
 
                         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
@@ -17,6 +18,8 @@ namespace RightCareSite.Models.DataBase
         public int MndStkInId { get; set; }
         public int ReBUy_tblId { get; set; }
         public int Buy_tblId { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime Date { get; set; }
         public int Product_TbleId { get; set; }
         [ForeignKey("Product_TbleId")]
         public virtual Product_Tble Product_Tble { get; set; }

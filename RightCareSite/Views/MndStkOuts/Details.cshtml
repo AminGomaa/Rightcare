@@ -1,0 +1,95 @@
+﻿@model IEnumerable<RightCareSite.Models.DataBase.MainStore>
+@using RightCareSite.Models
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ApplicationDbContext db = new ApplicationDbContext();
+    var id = Model.Select(x => x.MndStkOutId).FirstOrDefault();
+    var query = (from s in db.mndStkOuts
+                 join cs in db.MND_TBLs on s.MndId equals cs.Id
+                 join os in db.mainStores on s.Id equals os.MndStkInId
+                 where s.Id == id
+                 select new
+                 {
+                     mnd_nam = cs.MND_NAME,
+                     mnd_id = cs.Id,
+                     date = s.OrderDate,
+                     no = s.Id,
+                     prod_id = os.Product_TbleId,
+                     prod_Nam = os.Product_Tble.Name,
+                     qty = os.QtyOut,
+                     price = os.Price,
+                     amount = os.Amount
+                 }).FirstOrDefault();
+}
+<div class="row">
+    <div class="col-md-5">
+        <h3>@query.no</h3>
+    </div>
+    <div class="col-md-6">
+        <h3>اذن  ارتجاع  رقم</h3>
+    </div>
+</div>
+<div class="row">
+    <div class="row">
+        <div class="col-md-2">
+            <h3>@query.date.Date.ToShortDateString()</h3>
+        </div>
+        <div class="col-md-4">
+            <h3>@query.mnd_nam</h3>
+        </div>
+
+    </div>
+</div>
+<p>
+    @Html.ActionLink("رجوع", "Index")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            كود الصنف
+        </th>
+        <th>
+            الصنف
+        </th>
+
+        <th>
+            الكمية
+        </th>
+        <th>
+            السعر
+        </th>
+        <th>
+            المبلغ
+        </th>
+
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product_TbleId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product_Tble.Name)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.QtyIn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+
+
+
+        </tr>
+    }
+
+</table>

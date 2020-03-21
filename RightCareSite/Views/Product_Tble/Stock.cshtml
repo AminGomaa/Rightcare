@@ -1,0 +1,59 @@
+﻿@model IEnumerable<RightCareSite.Models.DataBase.Product_Tble>
+
+@{
+    ViewBag.Title = "Stock";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>المخزن</h2>
+<div class=" row">
+    <div class="col-md-3">
+        @Html.ActionLink("مرتجعات المندوبين", "Index","MndStkOuts")
+    </div>
+    <div class="col-md-3">
+
+    </div>
+
+    <div class="col-md-3">
+        @Html.ActionLink("مصروفات بضاعة للمندوبين", "Index", "MndStkIns")
+    </div>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            كود الصنف
+        </th>
+        <th>
+الصنف
+        </th>
+        <th>
+سعر البيع
+        </th>
+        <th>
+المخزون
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SelPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SQty)
+        </td>
+        <td>
+            @Html.ActionLink("حركة الصنف", "ProdMotion", new { id=item.Id }) 
+        </td>
+    </tr>
+}
+
+</table>

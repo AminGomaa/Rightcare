@@ -7,42 +7,46 @@
 
 <h2>مرتجعات العملاء</h2>
 
+
+    
 <p>
-    @Html.ActionLink("مرتجع جديد", "Create")
+    <a href="@Url.Action("AddReturn", "Order")">بيع جديد</a>
 </p>
+
 <table class="table">
     <tr>
-       
+
         <th>
-           العميل
+            العميل
         </th>
 
         <th>
-              التاريخ
+            التاريخ
         </th>
         <th>
-           رقم الفاتورة
+            رقم الفاتورة
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-       
-        <td>
-            @Html.DisplayFor(modelItem => item.Cust_Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OrderDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Id)
-        </td>
-        <td>
-            @Html.ActionLink("نفاصيل", "Details", new { id = item.Id }) |
-            @Html.ActionLink("طباعة", "ReInvoice", new { id = item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Cust_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.ActionLink("نفاصيل", "Details", new { id = item.Id }) |
+                @Html.ActionLink("طباعة", "ReInvoice", new { id = item.Id })
+            </td>
+        </tr>
+    }
 
 </table>

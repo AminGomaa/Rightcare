@@ -52,8 +52,8 @@ namespace RightCareSite.Controllers
                             {
                                 Sal_TblId = orderID,
                                 Product_TbleId = item.ProductID,
-                                Price = item.Quantity,
-                                QtyOut =Convert.ToInt32(item.Price),
+                                Price = item.Price,
+                                QtyOut = item.Quantity,
                                 QtyIn = 0,
                                 Amount = item.TotalPrice
                                
@@ -61,7 +61,7 @@ namespace RightCareSite.Controllers
                             };
                             Stock stock = new Stock() {
                                 Prod_Id = item.ProductID,
-                                StQty=-Convert.ToInt32(item.Price),
+                                StQty=-item.Quantity,
                                 Case= "مبيعات",
                                 Date=System.DateTime.Now,
                                 MndId=cusname.MND_TBLId,
@@ -132,15 +132,15 @@ namespace RightCareSite.Controllers
                             {
                                Rsal_TblId = orderID,
                                 Product_TbleId = item.ProductID,
-                                Price = item.Quantity,
-                                QtyIn = Convert.ToInt32(item.Price),
+                                Price = item.Price,
+                                QtyIn = item.Quantity,
                                 QtyOut = 0,
                                 Amount = item.TotalPrice
                             };
                             Stock stock = new Stock()
                             {
                                 Prod_Id = item.ProductID,
-                                StQty = Convert.ToInt32(item.Price),
+                                StQty = item.Quantity,
                                 Case = "مردودات مبيعات",
                                 Date = System.DateTime.Now,
                                 MndId = cusname.MND_TBLId,

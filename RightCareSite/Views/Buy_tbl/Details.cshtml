@@ -1,43 +1,92 @@
 ﻿@model RightCareSite.Models.DataBase.Buy_tbl
 
+@using RightCareSite.Models
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ApplicationDbContext db = new ApplicationDbContext();
+    var name = db.buy_Tbls.Find(Model.Id);
+    var invoice = db.mainStores.Where(s => s.Buy_tblId == Model.Id).ToList();
+    var total = db.mainStores.Where(s => s.Buy_tblId == Model.Id).Sum(s => s.Amount);
+
 }
-
-<h2>Details</h2>
-
-<div>
-    <h4>Buy_tbl</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.OrderDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.OrderDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Sup_Id)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Sup_Id)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Sup_Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Sup_Name)
-        </dd>
-
-    </dl>
+<div class=" row" align="right">
+    <div class="col-md-4"><h3>@name.Id</h3></div>
+    <div class="col-md-4"><h3>فاتورة مشتريات رقم</h3></div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<br />
+<div class=" row">
+    <div class="col-md-2"><h4>@name.OrderDate.ToShortDateString()</h4></div>
+    <div class="col-md-8">
+        <a href="@Url.Action("DETAILS","Suply_TBL",new { id=name.Sup_Id})"><h4>@name.Sup_Name</h4></a>
+    </div>
+</div>
+<br />
+<table class="table table-bordered">
+    <tr>
+        <th>
+            المبلغ
+        </th>
+
+        <th>
+            السعر
+        </th>
+        <th>
+            الكمية
+        </th>
+
+        <th>
+            الصنف
+        </th>
+
+
+    </tr>
+
+    @foreach (var v in invoice)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => v.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => v.Price)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => v.QtyIn)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => v.Product_Tble.Name)
+            </td>
+
+
+
+        </tr>
+
+    }
+</table>
+<div class="row">
+    <div class="col-md-1">
+        <h4>@total</h4>
+    </div>
+    <div class="col-md-2">
+        <h4>قيمة الفاتورة</h4>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-m-2">
+        <a href="@Url.Action("PInvoice",new { id=Model.Id})">طباعة الفاتورة </a><br /><a href="@Url.Action("Index","Buy_tbl")">قائمة الفواتير</a>
+
+    </div>
+    <div class="col-md-2">
+    </div>
+    @*<input class="no-print" type="button" onclick="window.print();return false;" value="طباعة" />*@
+
+
+</div>
+
+
+

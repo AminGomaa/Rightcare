@@ -11,130 +11,126 @@ using RightCareSite.Models.DataBase;
 
 namespace RightCareSite.Controllers
 {
-    public class Product_TbleController : Controller
+    public class Sub_AcountController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Product_Tble
+        // GET: Sub_Acount
         public ActionResult Index()
         {
-            var product_Tbles = db.product_Tbles.Include(p => p.Category_Tbl);
-            return View(product_Tbles.ToList());
+            var sub_Acounts = db.sub_Acounts.Include(s => s.Suply_Tbl);
+            return View(sub_Acounts.ToList());
         }
-        public ActionResult Stock()
+        public ActionResult SubAcount(int? id)
         {
-            var product_Tbles = db.product_Tbles.Include(p => p.Category_Tbl);
-            return View(product_Tbles.ToList());
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var sub_Acounts = db.sub_Acounts.Include(c => c.Suply_Tbl).Where(c => c.Suply_TblId == id);
+            ViewBag.Name = sub_Acounts;
+            return View(sub_Acounts.ToList());
         }
-
-        // GET: Product_Tble/Details/5
+        // GET: Sub_Acount/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product_Tble product_Tble = db.product_Tbles.Find(id);
-            if (product_Tble == null)
+            Sub_Acount sub_Acount = db.sub_Acounts.Find(id);
+            if (sub_Acount == null)
             {
                 return HttpNotFound();
             }
-            return View(product_Tble);
-        }
-        public ActionResult ProdMotion(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var  stor = db.mainStores.Where(x=>x.Product_TbleId==id);
-            if (stor == null)
-            {
-                return HttpNotFound();
-            }
-            return View(stor.ToList());
+            return View(sub_Acount);
         }
 
-        // GET: Product_Tble/Create
+        // GET: Sub_Acount/Create
         public ActionResult Create()
         {
-            ViewBag.Category_tblId = new SelectList(db.Category_Tbls, "Id", "Category");
+            ViewBag.Suply_TblId = new SelectList(db.suply_Tbls, "Id", "Name");
             return View();
         }
 
-        // POST: Product_Tble/Create
+        // POST: Sub_Acount/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,SelPrice,Category_tblId")] Product_Tble product_Tble)
+        public ActionResult Create([Bind(Include = "Id,SupId,ByNo,RbyNo,Amount,EslNo,Date,Suply_TblId")] Sub_Acount sub_Acount)
         {
             if (ModelState.IsValid)
             {
-                db.product_Tbles.Add(product_Tble);
+                sub_Acount.ByNo = 0;
+                sub_Acount.RbyNo = 0;
+                sub_Acount.Date = DateTime.Now.Date;
+                sub_Acount.EslNo = Convert.ToInt32(db.sub_Acounts.Max(c => c.EslNo + 1));
+                sub_Acount.Amount = -sub_Acount.Amount;
+                db.sub_Acounts.Add(sub_Acount);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Category_tblId = new SelectList(db.Category_Tbls, "Id", "Category", product_Tble.Category_tblId);
-            return View(product_Tble);
+            ViewBag.Suply_TblId = new SelectList(db.suply_Tbls, "Id", "Name", sub_Acount.Suply_TblId);
+            return View(sub_Acount);
         }
 
-        // GET: Product_Tble/Edit/5
+        // GET: Sub_Acount/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product_Tble product_Tble = db.product_Tbles.Find(id);
-            if (product_Tble == null)
+            Sub_Acount sub_Acount = db.sub_Acounts.Find(id);
+            if (sub_Acount == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Category_tblId = new SelectList(db.Category_Tbls, "Id", "Category", product_Tble.Category_tblId);
-            return View(product_Tble);
+            ViewBag.Suply_TblId = new SelectList(db.suply_Tbls, "Id", "Name", sub_Acount.Suply_TblId);
+            return View(sub_Acount);
         }
 
-        // POST: Product_Tble/Edit/5
+        // POST: Sub_Acount/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,SelPrice,Category_tblId")] Product_Tble product_Tble)
+        public ActionResult Edit([Bind(Include = "Id,SupId,ByNo,RbyNo,Amount,EslNo,Date,Suply_TblId")] Sub_Acount sub_Acount)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(product_Tble).State = EntityState.Modified;
+                db.Entry(sub_Acount).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Category_tblId = new SelectList(db.Category_Tbls, "Id", "Category", product_Tble.Category_tblId);
-            return View(product_Tble);
+            ViewBag.Suply_TblId = new SelectList(db.suply_Tbls, "Id", "Name", sub_Acount.Suply_TblId);
+            return View(sub_Acount);
         }
 
-        // GET: Product_Tble/Delete/5
+        // GET: Sub_Acount/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product_Tble product_Tble = db.product_Tbles.Find(id);
-            if (product_Tble == null)
+            Sub_Acount sub_Acount = db.sub_Acounts.Find(id);
+            if (sub_Acount == null)
             {
                 return HttpNotFound();
             }
-            return View(product_Tble);
+            return View(sub_Acount);
         }
 
-        // POST: Product_Tble/Delete/5
+        // POST: Sub_Acount/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Product_Tble product_Tble = db.product_Tbles.Find(id);
-            db.product_Tbles.Remove(product_Tble);
+            Sub_Acount sub_Acount = db.sub_Acounts.Find(id);
+            db.sub_Acounts.Remove(sub_Acount);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

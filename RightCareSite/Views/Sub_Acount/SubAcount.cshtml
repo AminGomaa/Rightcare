@@ -1,31 +1,33 @@
-﻿@model IEnumerable<RightCareSite.Models.DataBase.Cust_Acount>
+﻿@model IEnumerable<RightCareSite.Models.DataBase.Sub_Acount>
 @using RightCareSite.Models
 
 @{
-    ViewBag.Title = "CustAccount";
+
+    ViewBag.Title = "SubAcount";
     Layout = "~/Views/Shared/_Layout.cshtml";
     ApplicationDbContext db = new ApplicationDbContext();
-    var cust = Model.Select(x => x.CUST_TBL.CUST_NAME).FirstOrDefault();
+    var cust = Model.Select(x => x.Suply_Tbl.Name).FirstOrDefault();
     var total = Model.Sum(x => x.Amount);
-    var custId = Model.Select(x => x.CUST_TBLId).FirstOrDefault();
+    var custId = Model.Select(x => x.Suply_TblId).FirstOrDefault();
+
 
 }
-<h3>كشف حساب عميل</h3>
+<h3>كشف حساب موزد</h3>
 <br />
 
 <h3>
 
     <p align="center">
-        <a href="@Url.Action("Details","CUST_TBL",new { id=custId})">@cust </a>
+        <a href="@Url.Action("Details","Suply_Tbl",new { id=custId})">@cust </a>
     </p>
-    
+
 
 </h3>
 <table class="table table-bordered">
     <tr>
 
         <th>
-            رقم فاتورة البيع
+            رقم فاتورة الشراء
         </th>
         <th>
             رقم المرتجع
@@ -49,10 +51,10 @@
         <tr>
 
             <td>
-                @Html.DisplayFor(modelItem => item.SalNo)
+                @Html.DisplayFor(modelItem => item.ByNo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.RslNo)
+                @Html.DisplayFor(modelItem => item.RbyNo)
             </td>
 
             <td>
@@ -69,5 +71,5 @@
     }
 
 </table>
-<div align="right"><h3>@total</h3></div><div align="left"><a href="@Url.Action("Cust_Account","CUST_TBL",new { id=custId})"><h3>طباعة</h3> </a></div>
+<div align="right"><h3>@total</h3></div><div align="left"><a href="@Url.Action("Sub_Account","Suply_tbl",new { id=custId})"><h3>طباعة</h3> </a></div>
 

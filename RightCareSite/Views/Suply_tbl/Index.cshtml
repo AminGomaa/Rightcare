@@ -10,6 +10,8 @@
 <p>
     @Html.ActionLink("اضافة مورد جديد", "Create")
 </p>
+<p>@Html.ActionLink("تسديدات العملاء", "Index", "Sub_Acount")</p>
+
 <table class="table">
     <tr>
         <th></th>
@@ -37,28 +39,29 @@
         </th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.ActionLink("تعديل", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("تفاصيل", "Details", new { id = item.Id }) |
-            @Html.ActionLink("حذف", "Delete", new { id = item.Id })
-        </td>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink("تعديل", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("تفاصيل", "Details", new { id = item.Id }) |
+                <a href="@Url.Action("SubAcount","Sub_Acount",new { id=item.Id})">كشف حساب العميل</a>
+            </td>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.Governorate.Gov_Name)
-        </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Governorate.Gov_Name)
+            </td>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.Phone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-    </tr>
-}
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+        </tr>
+    }
 
 </table>
